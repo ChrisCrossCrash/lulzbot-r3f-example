@@ -1,5 +1,33 @@
+@use 'custom-bootstrap';
+
 body {
-  background-color: black;
-  color: white;
-  font-family: sans-serif;
+  background-color: #f7f7f7;
+  font-family: Lato, sans-serif;
+  color: #222;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+p {
+  font-size: 1.2rem;
+  line-height: 1.5em;
+  color: #444;
+}
+
+button {
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.7rem 1.5rem;
+  background-color: #c1d82f;
+  cursor: pointer;
+  // box-shadow with a blur of 4px and a y-offset of 1px
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.31);
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #e2e868;
+  }
 }

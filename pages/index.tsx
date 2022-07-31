@@ -1,48 +1,32 @@
-import { useRef, useState } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
+import { PresentationControls } from '@react-three/drei'
+import Balljoint from '../components/Balljoint'
 import type { NextPage } from 'next'
-import { Mesh } from 'three'
-
-type BoxProps = {
-  position: [number, number, number]
-}
-
-function Box(props: BoxProps) {
-  // This reference will give us direct access to the mesh
-  const mesh = useRef<Mesh>(null)
-  // Set up state for the hovered and active state
-  const [hovered, setHover] = useState(false)
-  const [active, setActive] = useState(false)
-  // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame(() => {
-    if (!mesh.current) return
-    mesh.current.rotation.x += 0.01
-  })
-
-  // Return view, these are regular three.js elements expressed in JSX
-  return (
-    <mesh
-      {...props}
-      ref={mesh}
-      scale={active ? 1.5 : 1}
-      onClick={() => setActive(!active)}
-      onPointerOver={() => setHover(true)}
-      onPointerOut={() => setHover(false)}
-    >
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
-    </mesh>
-  )
-}
+import { Container, Row, Col } from 'react-bootstrap'
+import styles from './index.module.scss'
 
 const Home: NextPage = () => {
   return (
-    <Canvas style={{ height: '100vh', width: '100%' }}>
-      <ambientLight />
-      <pointLight position={[10, 10, 10]} />
-      <Box position={[-1.2, 0, 0]} />
-      <Box position={[1.2, 0, 0]} />
-    </Canvas>
+    <Container>
+      <Row className={styles.samplePrintRow}>
+        <Col lg={4} md={6} xs={12} className={styles.infoCol}>
+          <h1>Get a Free Sample 3D Print</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore
+            officia excepturi fugit tenetur facilis tempore a rerum, veniam,
+            quaerat doloribus quia.
+          </p>
+          <button>Order Now</button>
+        </Col>
+        <Col className={styles.canvasContainer}>
+          <Canvas camera={{ position: [0, 0.2, 0.8], fov: 60 }}>
+            <PresentationControls global cursor polar={[-0.45, 0.75]}>
+              <Balljoint position={[0, -0.2, 0]} />
+            </PresentationControls>
+          </Canvas>
+        </Col>
+      </Row>
+    </Container>
   )
 }
 
